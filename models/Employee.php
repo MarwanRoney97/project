@@ -32,12 +32,12 @@
       employee.performance,
       employee.bank_account,
       employee.id,
-      pure_salary.pure_salary,
-      pure_salary.reward,
-      pure_salary.user_id 
-       FROM  employee
-      INNER JOIN pure_salary
-      ON  pure_salary.user_id = employee.id';
+      salary.pure_salary,
+      salary.reward,
+      salary.user_id 
+      FROM  employee
+      INNER JOIN salary
+      ON  salary.user_id = employee.id';
       
       // Prepare statement
       $stmt = $this->conn->prepare($query);

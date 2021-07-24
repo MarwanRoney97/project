@@ -34,7 +34,7 @@ header('Access-Control-Allow-Origin: *');
         'phone' => $phone,
         'performance' => $performance,
         'bank_account' => $bank_account,
-        'salary' => $salary,
+        'pure_salary' => $pure_salary,
         'reward' => $reward   
       );
 
