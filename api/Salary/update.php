@@ -6,27 +6,24 @@
   header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
   include_once '../../config/Database.php';
-  include_once '../../models/Employee.php';
+  include_once '../../models/Salary.php';
   // Instantiate DB & connect
   $database = new Database();
   $db = $database->connect();
 
   // Instantiate employee post object
-  $post = new Employee($db);
+  $post = new Salary($db);
 
   // Get raw Employee data
   $data = json_decode(file_get_contents("php://input"));
 
-  // Set ID to update 
+  // Set ID to update
   $post->id = $data->id;
-
-
-  $post->Username = $data->Username;
-  $post->email = $data->email;
-  $post->vacation_balance = $data->vacation_balance;
-  $post->phone = $data->phone;
-  $post->performance = $data->performance;
-  $post->bank_account = $data->bank_account;
+  
+  $post->pure_salary = $data->pure_salary;
+ 
+  $post->reward = $data->reward;
+  $post->user_id = $data->user_id;
 
   // Create post
   if($post->update()) {

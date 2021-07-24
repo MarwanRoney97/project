@@ -1,19 +1,17 @@
 <?php 
-  class Employee {
+  class Admin {
     // DB stuff
     private $conn;
-    private $table = 'employee';
+    private $table = 'admin';
 
-    // Employee Properties
+    // Admin Properties
     public $id;
-    public $Username;
+    public $username;
     public $email;
-    public $vacation_balance;
+    public $password;
     public $phone;
-    public $performance;
-    public $bank_account;
-    public $pure_salary;
-    public $reward;
+    
+   
     
 
     // Constructor with DB
@@ -21,23 +19,10 @@
       $this->conn = $db;
     }
 
-    // Get employee information
+    // Get Admin information
     public function read() {
       // Create query
-      $query = 'SELECT DISTINCT
-      employee.Username,
-      employee.email,
-      employee.vacation_balance,
-      employee.phone,
-      employee.performance,
-      employee.bank_account,
-      employee.id,
-      pure_salary.pure_salary,
-      pure_salary.reward,
-      pure_salary.user_id 
-       FROM  employee
-      INNER JOIN pure_salary
-      ON  pure_salary.user_id = employee.id';
+      $query = 'SELECT *FROM  admin WHERE id =id';
       
       // Prepare statement
       $stmt = $this->conn->prepare($query);
@@ -51,9 +36,9 @@
     // Get Single Post
     public function read_single() {
           // Create query
-          $query = 'SELECT * FROM pure_salary INNER JOIN employee
+          $query = 'SELECT * FROM admin 
                                     WHERE
-                                    employee.id = ?
+                                    Admin.id = ?
                                     LIMIT 0,1';
 
           // Prepare statement
@@ -70,48 +55,34 @@
           // Set properties
           $this->phone = $row['phone'];
           $this->email = $row['email'];
-          $this->Username = $row['Username'];
-          $this->vacation_balance = $row['vacation_balance'];
-          $this->performance = $row['performance'];
-          $this->bank_account = $row['bank_account'];
-          $this->pure_salary = $row['pure_salary'];
-          $this->reward = $row['reward'];    
+          $this->username = $row['username'];
+          $this->password = $row['password'];
+          $this->id = $row['id'];
+          
     }
 
     // Create Post
     public function create() {
           // Create query
-          $query = 'INSERT INTO  employee SET 
+          $query = 'INSERT INTO  admin SET 
           email = :email, 
-          Username = :Username,
-          vacation_balance = :vacation_balance,
-          phone = :phone,
-          bank_account = :bank_account,
-          performance = :performance';
+          username = :username,
+          password = :password,
+          phone = :phone';
+       
           // Prepare statement
           $stmt = $this->conn->prepare($query);
 
           // Clean data
           $this->email = htmlspecialchars(strip_tags($this->email));
-          $this->Username = htmlspecialchars(strip_tags($this->Username));
-          $this->vacation_balance = htmlspecialchars(strip_tags($this->vacation_balance));
+          $this->username = htmlspecialchars(strip_tags($this->username));
+          $this->password = htmlspecialchars(strip_tags($this->password));
           $this->phone = htmlspecialchars(strip_tags($this->phone));
-          $this->bank_account = htmlspecialchars(strip_tags($this->bank_account));
-          $this->performance = htmlspecialchars(strip_tags($this->performance));
-         
-      
-         
-
           // Bind data
           $stmt->bindParam(':email', $this->email);
-          $stmt->bindParam(':Username', $this->Username);
-          $stmt->bindParam(':vacation_balance', $this->vacation_balance);
+          $stmt->bindParam(':username', $this->username);
+          $stmt->bindParam(':password', $this->password);
           $stmt->bindParam(':phone', $this->phone);
-          $stmt->bindParam(':bank_account', $this->bank_account);
-          $stmt->bindParam(':performance', $this->performance);
-     
-          
-         
           // Execute query
           if($stmt->execute()) {
             return true;
@@ -126,35 +97,26 @@
     // Update Post
     public function update() {
           // Create query
-          $query = 'UPDATE employee 
+          $query = 'UPDATE Admin 
           SET email = :email, 
-          Username = :Username,
-          vacation_balance = :vacation_balance,
-          phone = :phone,
-          bank_account = :bank_account,
-          performance = :performance
+          username = :username,
+          password = :password,
+          phone = :phone
           WHERE id = :id';
   // Prepare statement
           $stmt = $this->conn->prepare($query);
 
           // Clean data
           $this->email = htmlspecialchars(strip_tags($this->email));
-          $this->Username = htmlspecialchars(strip_tags($this->Username));
-          $this->vacation_balance = htmlspecialchars(strip_tags($this->vacation_balance));
+          $this->username = htmlspecialchars(strip_tags($this->username));
+          $this->password = htmlspecialchars(strip_tags($this->password));
           $this->phone = htmlspecialchars(strip_tags($this->phone));
-          $this->bank_account = htmlspecialchars(strip_tags($this->bank_account));
-          $this->performance = htmlspecialchars(strip_tags($this->performance));
           $this->id = htmlspecialchars(strip_tags($this->id));
-      
-         
-
           // Bind data
           $stmt->bindParam(':email', $this->email);
-          $stmt->bindParam(':Username', $this->Username);
-          $stmt->bindParam(':vacation_balance', $this->vacation_balance);
+          $stmt->bindParam(':username', $this->username);
+          $stmt->bindParam(':password', $this->password);
           $stmt->bindParam(':phone', $this->phone);
-          $stmt->bindParam(':bank_account', $this->bank_account);
-          $stmt->bindParam(':performance', $this->performance);
           $stmt->bindParam(':id', $this->id);
           // Execute query
           if($stmt->execute()) {
