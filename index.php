@@ -1,35 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<?php include('inc/header.php') ?>
     
-    <title>Project</title>
-</head>
+<div class="row">
 
-<body>
-    
-    <div class="container mt-4">
+    <div class= 'w-50 container border form-group mt-5 p-3 shadow-lg' style="border-radius: 50px">
 
-    <form method="POST">
-        <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name">
-            <div id="emailHelp" class="form-text">Assign your first and last name here.</div>
+        <div class="container-fluid">
+
+            <div class="row shadow-sm border rounded-pill p-3 text-center mb-4" > 
+                <h5 class="m-0">
+                    Accounting System
+                </h5>    
+            </div>
+
+            <div>
+                <form action="proccess/login_processing.php" method="POST">
+                    <h3 class="text-center"><strong>Login to the system</strong></h3>
+                    <small>
+                        <?php if (isset($_SESSION['error'])): ?>
+                            <div id="error_indicator" class="alert <?php echo $_SESSION['errorClass']; ?>">
+                                <strong class="text-center" ><?php echo $_SESSION['error'] ?></strong>
+                            </div>
+                        <?php endif ?>	
+                    </small>
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <label class="col-form-label" for="inputDefault"><strong>Username</strong></label>
+                                <input type="text" name="username" maxlength="20" class=" rounded-pill form-control" placeholder="Insert username here">
+                            </div>
+                        </div>
+
+                        <div class= "row">
+                            <div class="col-sm">
+                                <label class="col-form-label" for="inputDefault"><strong>Password</strong></label>
+                                <input type="password" name="password" minlength="4" maxlength="10" class="rounded-pill form-control" placeholder="Insert password here">
+                            </div>
+                        </div>
+                        <br>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button type="submit" name="login" class="rounded-pill form-control btn btn-primary btn-lg btn-block">Login</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+                
         </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="text" class="form-control" id="email">
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
         
     </div>
 
-</body>
-</html>
+</div>
+
+<?php include('inc/footer.php') ?>
